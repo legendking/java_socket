@@ -13,6 +13,7 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
   
 public class Test {  
+	private static String WhiteList = "139.224.6.124"; 
     public static void main(String[] args) throws Exception {  
         startWork();  
     }  
@@ -23,13 +24,13 @@ public class Test {
         SSLContext sslContext = SSLContext.getInstance("SSL", "SunJSSE");
         sslContext.init(null, tm, new java.security.SecureRandom());
         SSLSocketFactory ssf = sslContext.getSocketFactory();      
-        URL url = new URL("https://127.0.0.1:8081/test");  
+        URL url = new URL("https://139.224.6.124:8081/service");  
         HttpsURLConnection urlConn = (HttpsURLConnection) url.openConnection(); 
         urlConn.setHostnameVerifier(new HostnameVerifier()
         {
-			public boolean verify(String arg0, SSLSession arg1) {
-				System.out.println(arg0);
-				return true;
+			public boolean verify(String ip, SSLSession sec) {
+				if(WhiteList.contains(ip))return true;
+				else return false;
 			}
         });
         urlConn.setSSLSocketFactory(ssf);
