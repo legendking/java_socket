@@ -13,18 +13,21 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
   
 public class Test {  
-	private static String WhiteList = "139.224.6.124"; 
+	private static String WhiteList = "139.224.6.124";
+	private static String[] ServerList = {"2","3","4"};
+	private static int[] bin = {0,0,0};
     public static void main(String[] args) throws Exception {  
-        startWork();  
+        for(int i=1;i<=100;i++)startWork(); 
+        for(int i=0;i<bin.length;i++)System.out.println("Server "+ ServerList[i] + ": " + bin[i]);
     }  
   
     public static void startWork() throws Exception {  
-
+    	
     	TrustManager[] tm = { new TrustManager() };
         SSLContext sslContext = SSLContext.getInstance("SSL", "SunJSSE");
         sslContext.init(null, tm, new java.security.SecureRandom());
         SSLSocketFactory ssf = sslContext.getSocketFactory();      
-        URL url = new URL("https://139.224.6.124:8081/heartbeat");  
+        URL url = new URL("https://139.224.6.124:8081/service");  
         HttpsURLConnection urlConn = (HttpsURLConnection) url.openConnection(); 
         urlConn.setHostnameVerifier(new HostnameVerifier()
         {
@@ -51,7 +54,15 @@ public class Test {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(in));  
                 String temp = "";  
                 while ((temp = reader.readLine()) != null) {  
-                    System.out.println("server response:" + temp);
+                    //System.out.println("server response:" + temp);
+                    
+                    //for test
+                    for(int i=0;i<ServerList.length;i++) {
+                    	if(temp.contains(ServerList[i])) {
+                    		bin[i]++;
+                    		break;
+                    	}
+                    }
                 }
                 reader.close();  
                 in.close();  

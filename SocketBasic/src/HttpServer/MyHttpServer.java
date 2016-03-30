@@ -63,7 +63,7 @@ public class MyHttpServer {
     
     static class HeartBeatHandler implements HttpHandler {  
         public void handle(HttpExchange httpExchange) throws IOException {
-            httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK,0);
+            httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK,-1);
             OutputStream out = httpExchange.getResponseBody();
             out.flush();  
             httpExchange.close();  
