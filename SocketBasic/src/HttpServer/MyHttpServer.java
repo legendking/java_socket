@@ -61,7 +61,7 @@ public class MyHttpServer {
         System.out.println("Initialized Service!");  
     }  
     
-    static class AlgorithmHandler implements HttpHandler {  
+    static class HeartBeatHandler implements HttpHandler {  
         public void handle(HttpExchange httpExchange) throws IOException {
             httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK,0);
             OutputStream out = httpExchange.getResponseBody();
@@ -70,7 +70,7 @@ public class MyHttpServer {
         }
     }
 
-    static class HeartBeatHandler implements HttpHandler {  
+    static class AlgorithmHandler implements HttpHandler {  
         public void handle(HttpExchange httpExchange) throws IOException {  
             String responseMsg = "Server " + arg[0]; 
             InputStream in = httpExchange.getRequestBody();

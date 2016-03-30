@@ -24,7 +24,7 @@ public class Test {
         SSLContext sslContext = SSLContext.getInstance("SSL", "SunJSSE");
         sslContext.init(null, tm, new java.security.SecureRandom());
         SSLSocketFactory ssf = sslContext.getSocketFactory();      
-        URL url = new URL("https://139.224.6.124:8081/service");  
+        URL url = new URL("https://139.224.6.124:8081/heartbeat");  
         HttpsURLConnection urlConn = (HttpsURLConnection) url.openConnection(); 
         urlConn.setHostnameVerifier(new HostnameVerifier()
         {
@@ -39,7 +39,7 @@ public class Test {
         
         
         urlConn.setRequestMethod("POST");  
-        String teststr = "this is a test message";  
+        String teststr = "test";  
         OutputStream out = urlConn.getOutputStream();  
         out.write(teststr.getBytes());  
         out.flush();  
