@@ -1,2 +1,2 @@
 cd bin
-java SocketBasic/MyHttpServer [server number]
+java HttpServer/MyHttpServer [server number]
