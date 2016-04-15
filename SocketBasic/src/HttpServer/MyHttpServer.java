@@ -14,6 +14,7 @@ import java.net.InetSocketAddress;
 import java.security.KeyStore;  
 import java.security.PrivateKey;
 import java.text.SimpleDateFormat;
+import java.util.concurrent.Executors;
 
 import javax.net.ssl.KeyManagerFactory;  
 import javax.net.ssl.SSLContext;  
@@ -52,7 +53,8 @@ public class MyHttpServer {
 	    	HttpServer http = HttpServer.create(new InetSocketAddress(8081), 1000); 
 	    	http.createContext("/service", new AlgorithmHandler());  
 	        http.createContext("/heartbeat", new HeartBeatHandler());  
-	        http.setExecutor(null);  
+	        http.setExecutor(Executors.newCachedThreadPool());
+	//	http.setExecutor(null);  
 	//        KeyStore ks = KeyStore.getInstance("JKS");   
 	//        ks.load(new FileInputStream("F:/serverkey"), pass.toCharArray()); 
 	//        PrivateKey pk = (PrivateKey) ks.getKey("testkey", pass.toCharArray());
